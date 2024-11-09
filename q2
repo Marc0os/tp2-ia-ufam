@@ -1,0 +1,36 @@
+% Probabilidades marginais
+0.1::flw.
+0.9::\+flw.
+
+0.7::str(dry).
+0.2::str(wet).
+0.1::str(snow_covered).
+
+0.98::b.
+0.95::k.
+
+% Probabilidades condicionais para R dependendo de Str e Flw
+0.15::r :- str(dry), flw.
+0.05::r :- str(dry), \+flw.
+0.55::r :- str(wet), flw.
+0.35::r :- str(wet), \+flw.
+0.85::r :- str(snow_covered), flw.
+0.65::r :- str(snow_covered), \+flw.
+
+% Probabilidades condicionais para V dependendo de R
+0.9::v :- r.
+0.25::v :- \+r.
+
+% Probabilidades condicionais para Li dependendo de V, B, e K
+0.99::li :- v, b, k.
+0.01::li :- v, b, \+k.
+0.01::li :- v, \+b, k.
+0.001::li :- v, \+b, \+k.
+0.03::li :- \+v, b, k.
+0.005::li :- \+v, b, \+k.
+0.005::li :- \+v, \+b, k.
+0::li :- \+v, \+b, \+k.
+
+% Consultas
+query(v).
+evidence(str(snow_covered)).
